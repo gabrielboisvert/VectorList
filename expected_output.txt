@@ -1,0 +1,636 @@
+===========Test container============
+Create container
+*** Allocate block 0 : 5 elem of 16 bytes
+Create Foo_0
+Create Foo_1
+Create Foo_2
+Create Foo_3
+Create Foo_4
+Destroy container
+Destroy Foo_0
+Destroy Foo_1
+Destroy Foo_2
+Destroy Foo_3
+Destroy Foo_4
+*** Deallocate block 0 : 5 elem of 16 bytes
+*** No memory leak
+=======Vector of int================
+
+Create vector
+
+sizeof(intVec) : 24
+
+Capacity=0, Size=0
+
+intVec.push_back((const int&)10);
+*** Allocate block 1 : 1 elem of 4 bytes
+
+intVec.push_back((const int&)20);
+*** Allocate block 2 : 2 elem of 4 bytes
+*** Deallocate block 1 : 1 elem of 4 bytes
+
+intVec.push_back((const int&)30);
+*** Allocate block 3 : 4 elem of 4 bytes
+*** Deallocate block 2 : 2 elem of 4 bytes
+
+intVec.push_back((const int&)40);
+
+intVec.push_back((const int&)50);
+*** Allocate block 4 : 8 elem of 4 bytes
+*** Deallocate block 3 : 4 elem of 4 bytes
+
+Capacity=8, Size=5
+
+intVec[3] *= 2;
+10 20 30 80 50
+
+Destroy vector
+
+*** Deallocate block 4 : 8 elem of 4 bytes
+*** No memory leak
+
+=======Vector of Foo================
+
+Create vector
+
+sizeof(fooVec) : 24
+
+fooVec.reserve(2)
+*** Allocate block 5 : 2 elem of 16 bytes
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_0
+Create Foo_1 copy of Foo_0
+Destroy Foo_0
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_2
+Create Foo_3 copy of Foo_2
+Destroy Foo_2
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_4
+*** Allocate block 6 : 4 elem of 16 bytes
+Create Foo_5 copy of Foo_4
+Create Foo_6 copy of Foo_1
+Create Foo_7 copy of Foo_3
+Destroy Foo_1
+Destroy Foo_3
+*** Deallocate block 5 : 2 elem of 16 bytes
+Destroy Foo_4
+
+Destroy vector
+
+Destroy Foo_6
+Destroy Foo_7
+Destroy Foo_5
+*** Deallocate block 6 : 4 elem of 16 bytes
+*** No memory leak
+
+=======Vector of Foo================
+
+Create vector
+
+fooVec.reserve(2)
+*** Allocate block 7 : 2 elem of 16 bytes
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_0
+Create Foo_1 copy of Foo_0
+Destroy Foo_0
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_2
+Create Foo_3 copy of Foo_2
+Destroy Foo_2
+
+fooVec.clear()
+Destroy Foo_1
+Destroy Foo_3
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_4
+Create Foo_5 copy of Foo_4
+Destroy Foo_4
+
+Destroy vector
+
+Destroy Foo_5
+*** Deallocate block 7 : 2 elem of 16 bytes
+*** No memory leak
+
+=======Vector of Foo================
+
+Create vector
+
+fooVec.resize(2)
+*** Allocate block 8 : 2 elem of 16 bytes
+Create Foo_0
+Create Foo_1
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_2
+*** Allocate block 9 : 4 elem of 16 bytes
+Create Foo_3 copy of Foo_2
+Create Foo_4 copy of Foo_0
+Create Foo_5 copy of Foo_1
+Destroy Foo_0
+Destroy Foo_1
+*** Deallocate block 8 : 2 elem of 16 bytes
+Destroy Foo_2
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_6
+Create Foo_7 copy of Foo_6
+Destroy Foo_6
+
+Destroy vector
+
+Destroy Foo_4
+Destroy Foo_5
+Destroy Foo_3
+Destroy Foo_7
+*** Deallocate block 9 : 4 elem of 16 bytes
+*** No memory leak
+
+=======Vector of Foo================
+
+Create vector
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_0
+*** Allocate block 10 : 1 elem of 16 bytes
+Create Foo_1 copy of Foo_0
+Destroy Foo_0
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_2
+*** Allocate block 11 : 2 elem of 16 bytes
+Create Foo_3 copy of Foo_2
+Create Foo_4 copy of Foo_1
+Destroy Foo_1
+*** Deallocate block 10 : 1 elem of 16 bytes
+Destroy Foo_2
+
+Copy fooVec
+
+*** Allocate block 12 : 2 elem of 16 bytes
+Create Foo_5 copy of Foo_4
+Create Foo_6 copy of Foo_3
+
+Destroy vectors
+Destroy Foo_5
+Destroy Foo_6
+*** Deallocate block 12 : 2 elem of 16 bytes
+Destroy Foo_4
+Destroy Foo_3
+*** Deallocate block 11 : 2 elem of 16 bytes
+*** No memory leak
+
+=======Vector of Foo================
+
+Create vector
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_0
+*** Allocate block 13 : 1 elem of 16 bytes
+Create Foo_1 copy of Foo_0
+Destroy Foo_0
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_2
+*** Allocate block 14 : 2 elem of 16 bytes
+Create Foo_3 copy of Foo_2
+Create Foo_4 copy of Foo_1
+Destroy Foo_1
+*** Deallocate block 13 : 1 elem of 16 bytes
+Destroy Foo_2
+
+Copy fooVec
+
+*** Allocate block 15 : 2 elem of 16 bytes
+Create Foo_5 copy of Foo_4
+Create Foo_6 copy of Foo_3
+
+Destroy vectors
+Destroy Foo_5
+Destroy Foo_6
+*** Deallocate block 15 : 2 elem of 16 bytes
+Destroy Foo_4
+Destroy Foo_3
+*** Deallocate block 14 : 2 elem of 16 bytes
+*** No memory leak
+
+=======Vector_Iterators================
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_0
+*** Allocate block 16 : 1 elem of 16 bytes
+Create Foo_1 copy of Foo_0
+Destroy Foo_0
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_2
+*** Allocate block 17 : 2 elem of 16 bytes
+Create Foo_3 copy of Foo_2
+Create Foo_4 copy of Foo_1
+Destroy Foo_1
+*** Deallocate block 16 : 1 elem of 16 bytes
+Destroy Foo_2
+
+fooVec.push_back((const Foo&)Foo())
+Create Foo_5
+*** Allocate block 18 : 4 elem of 16 bytes
+Create Foo_6 copy of Foo_5
+Create Foo_7 copy of Foo_4
+Create Foo_8 copy of Foo_3
+Destroy Foo_4
+Destroy Foo_3
+*** Deallocate block 17 : 2 elem of 16 bytes
+Destroy Foo_5
+
+Print vector:
+7 8 6
+
+
+vector<Foo>::iterator it = fooVec.begin()
+
+Check Iterators: OK
+Destroy Foo_7
+Destroy Foo_8
+Destroy Foo_6
+*** Deallocate block 18 : 4 elem of 16 bytes
+*** No memory leak
+
+=======Vector_Rvalues_Variadics================
+
+fooVec.push_back(Foo())
+Create Foo_0
+*** Allocate block 19 : 1 elem of 16 bytes
+Create Foo_1 move copy of Foo_0
+Destroy Foo_0
+
+fooVec.push_back(Foo())
+Create Foo_2
+*** Allocate block 20 : 2 elem of 16 bytes
+Create Foo_3 move copy of Foo_2
+Create Foo_4 copy of Foo_1
+Destroy Foo_1
+*** Deallocate block 19 : 1 elem of 16 bytes
+Destroy Foo_2
+
+fooVec.push_back(Foo())
+Create Foo_5
+*** Allocate block 21 : 4 elem of 16 bytes
+Create Foo_6 move copy of Foo_5
+Create Foo_7 copy of Foo_4
+Create Foo_8 copy of Foo_3
+Destroy Foo_4
+Destroy Foo_3
+*** Deallocate block 20 : 2 elem of 16 bytes
+Destroy Foo_5
+
+vector<Foo> thiefVector = std::move(fooVec)
+
+anotherFooVec.push_back(Foo())
+Create Foo_9
+*** Allocate block 22 : 1 elem of 16 bytes
+Create Foo_10 move copy of Foo_9
+Destroy Foo_9
+
+anotherFooVec.push_back(Foo())
+Create Foo_11
+*** Allocate block 23 : 2 elem of 16 bytes
+Create Foo_12 move copy of Foo_11
+Create Foo_13 copy of Foo_10
+Destroy Foo_10
+*** Deallocate block 22 : 1 elem of 16 bytes
+Destroy Foo_11
+
+anotherFooVec.push_back(Foo())
+Create Foo_14
+*** Allocate block 24 : 4 elem of 16 bytes
+Create Foo_15 move copy of Foo_14
+Create Foo_16 copy of Foo_13
+Create Foo_17 copy of Foo_12
+Destroy Foo_13
+Destroy Foo_12
+*** Deallocate block 23 : 2 elem of 16 bytes
+Destroy Foo_14
+
+thiefVector = std::move(anotherFooVec);
+Destroy Foo_7
+Destroy Foo_8
+Destroy Foo_6
+*** Deallocate block 21 : 4 elem of 16 bytes
+Create Foo_4242
+Destroy Foo_16
+Destroy Foo_17
+Destroy Foo_15
+Destroy Foo_4242
+*** Deallocate block 24 : 4 elem of 16 bytes
+*** No memory leak
+
+=======List================
+
+Create list
+
+maList.push_back((const int&)10)
+*** Allocate block 25 : 1 elem of 24 bytes
+
+maList.push_back((const int&)20)
+*** Allocate block 26 : 1 elem of 24 bytes
+
+maList.push_back((const int&)30)
+*** Allocate block 27 : 1 elem of 24 bytes
+
+maList.push_back((const int&)40)
+*** Allocate block 28 : 1 elem of 24 bytes
+
+maList.push_back((const int&)50)
+*** Allocate block 29 : 1 elem of 24 bytes
+
+List size : 5
+
+Print list:
+10 20 30 40 50
+
+
+maList.remove(20)
+*** Deallocate block 26 : 1 elem of 24 bytes
+
+maList.remove(40)
+*** Deallocate block 28 : 1 elem of 24 bytes
+10 30 50
+
+
+maList.insert(std::find(maList.begin(), maList.end(), 30), 60)
+*** Allocate block 30 : 1 elem of 24 bytes
+
+List size : 4
+
+Print list:
+10 60 30 50
+
+
+Destroy list
+
+*** Deallocate block 25 : 1 elem of 24 bytes
+*** Deallocate block 30 : 1 elem of 24 bytes
+*** Deallocate block 27 : 1 elem of 24 bytes
+*** Deallocate block 29 : 1 elem of 24 bytes
+*** No memory leak
+
+=======List================
+
+Create list
+
+list1.push_back((const int&)10)
+*** Allocate block 31 : 1 elem of 24 bytes
+
+list1.push_back((const int&)20)
+*** Allocate block 32 : 1 elem of 24 bytes
+
+list1.push_back((const int&)30)
+*** Allocate block 33 : 1 elem of 24 bytes
+
+list1.push_back((const int&)40)
+*** Allocate block 34 : 1 elem of 24 bytes
+
+list1.push_back((const int&)50)
+*** Allocate block 35 : 1 elem of 24 bytes
+
+
+Copy list = list2
+*** Allocate block 36 : 1 elem of 24 bytes
+*** Allocate block 37 : 1 elem of 24 bytes
+*** Allocate block 38 : 1 elem of 24 bytes
+*** Allocate block 39 : 1 elem of 24 bytes
+*** Allocate block 40 : 1 elem of 24 bytes
+
+list1.remove(20)
+*** Deallocate block 32 : 1 elem of 24 bytes
+
+list1.remove(40)
+*** Deallocate block 34 : 1 elem of 24 bytes
+
+list1.insert(std::find(list1.begin(), list1.end(), 30), 60)
+*** Allocate block 41 : 1 elem of 24 bytes
+
+Print list:
+10 60 30 50
+
+
+Print list2:
+10 20 30 40 50
+
+
+Destroy lists
+
+*** Deallocate block 36 : 1 elem of 24 bytes
+*** Deallocate block 37 : 1 elem of 24 bytes
+*** Deallocate block 38 : 1 elem of 24 bytes
+*** Deallocate block 39 : 1 elem of 24 bytes
+*** Deallocate block 40 : 1 elem of 24 bytes
+*** Deallocate block 31 : 1 elem of 24 bytes
+*** Deallocate block 41 : 1 elem of 24 bytes
+*** Deallocate block 33 : 1 elem of 24 bytes
+*** Deallocate block 35 : 1 elem of 24 bytes
+*** No memory leak
+
+=======List_Iterators================
+
+fooList.push_back((const Foo&)Foo())
+Create Foo_0
+*** Allocate block 42 : 1 elem of 32 bytes
+Create Foo_1 copy of Foo_0
+Destroy Foo_0
+
+fooList.push_back((const Foo&)Foo())
+Create Foo_2
+*** Allocate block 43 : 1 elem of 32 bytes
+Create Foo_3 copy of Foo_2
+Destroy Foo_2
+
+fooList.push_back((const Foo&)Foo())
+Create Foo_4
+*** Allocate block 44 : 1 elem of 32 bytes
+Create Foo_5 copy of Foo_4
+Destroy Foo_4
+
+Print list:
+1 3 5
+
+
+list<Foo>::iterator itList = fooList.begin();
+Create Foo_6
+*** Allocate block 45 : 1 elem of 32 bytes
+Create Foo_7 copy of Foo_6
+Destroy Foo_6
+Create Foo_8
+*** Allocate block 46 : 1 elem of 32 bytes
+Create Foo_9 copy of Foo_8
+*** Allocate block 47 : 1 elem of 32 bytes
+Create Foo_10 copy of Foo_8
+*** Allocate block 48 : 1 elem of 32 bytes
+Create Foo_11 copy of Foo_8
+Destroy Foo_8
+*** Allocate block 49 : 3 elem of 16 bytes
+Create Foo_12
+Create Foo_13 copy of Foo_12
+Destroy Foo_12
+Create Foo_14
+Create Foo_15 copy of Foo_14
+Destroy Foo_14
+Create Foo_16
+Create Foo_17 copy of Foo_16
+Destroy Foo_16
+*** Allocate block 50 : 1 elem of 32 bytes
+Create Foo_18 copy of Foo_13
+*** Allocate block 51 : 1 elem of 32 bytes
+Create Foo_19 copy of Foo_15
+*** Allocate block 52 : 1 elem of 32 bytes
+Create Foo_20 copy of Foo_17
+
+Check Iterators: OK
+Destroy Foo_13
+Destroy Foo_15
+Destroy Foo_17
+*** Deallocate block 49 : 3 elem of 16 bytes
+Destroy Foo_18
+*** Deallocate block 50 : 1 elem of 32 bytes
+Destroy Foo_19
+*** Deallocate block 51 : 1 elem of 32 bytes
+Destroy Foo_20
+*** Deallocate block 52 : 1 elem of 32 bytes
+Destroy Foo_1
+*** Deallocate block 42 : 1 elem of 32 bytes
+Destroy Foo_7
+*** Deallocate block 45 : 1 elem of 32 bytes
+Destroy Foo_9
+*** Deallocate block 46 : 1 elem of 32 bytes
+Destroy Foo_10
+*** Deallocate block 47 : 1 elem of 32 bytes
+Destroy Foo_11
+*** Deallocate block 48 : 1 elem of 32 bytes
+Destroy Foo_3
+*** Deallocate block 43 : 1 elem of 32 bytes
+Destroy Foo_5
+*** Deallocate block 44 : 1 elem of 32 bytes
+*** No memory leak
+
+=======List_Rvalues_Variadics================
+
+fooList.push_back(Foo())
+Create Foo_0
+*** Allocate block 53 : 1 elem of 32 bytes
+Create Foo_1 move copy of Foo_0
+Destroy Foo_0
+
+fooList.push_back(Foo())
+Create Foo_2
+*** Allocate block 54 : 1 elem of 32 bytes
+Create Foo_3 move copy of Foo_2
+Destroy Foo_2
+
+fooList.push_back(Foo())
+Create Foo_4
+*** Allocate block 55 : 1 elem of 32 bytes
+Create Foo_5 move copy of Foo_4
+Destroy Foo_4
+
+fooList.push_back(Foo())
+Create Foo_6
+*** Allocate block 56 : 1 elem of 32 bytes
+Create Foo_7 move copy of Foo_6
+Destroy Foo_6
+
+fooList.push_back(Foo())
+Create Foo_8
+*** Allocate block 57 : 1 elem of 32 bytes
+Create Foo_9 move copy of Foo_8
+Destroy Foo_8
+
+fooList.push_back(Foo())
+Create Foo_10
+*** Allocate block 58 : 1 elem of 32 bytes
+Create Foo_11 move copy of Foo_10
+Destroy Foo_10
+Destroy Foo_1
+*** Deallocate block 53 : 1 elem of 32 bytes
+Destroy Foo_3
+*** Deallocate block 54 : 1 elem of 32 bytes
+Destroy Foo_5
+*** Deallocate block 55 : 1 elem of 32 bytes
+*** Allocate block 59 : 1 elem of 32 bytes
+Create Foo_6000
+Create Foo_12 move copy of Foo_6000
+Destroy Foo_6000
+Destroy Foo_7
+*** Deallocate block 56 : 1 elem of 32 bytes
+Destroy Foo_9
+*** Deallocate block 57 : 1 elem of 32 bytes
+Destroy Foo_11
+*** Deallocate block 58 : 1 elem of 32 bytes
+Destroy Foo_12
+*** Deallocate block 59 : 1 elem of 32 bytes
+*** No memory leak
+
+=======Strings================
+Sizeof String : 40
+
+string s
+Length of s : 0
+
+string s = "Moins de 16 car"
+Length of s : 15
+
+string s = "Plus de 16 car, 27 au total"
+*** Allocate block 60 : 28 elem of 1 bytes
+Length of s : 27
+*** Deallocate block 60 : 28 elem of 1 bytes
+
+string s = "Plus de 32 car, 34 pour etre exact"
+*** Allocate block 61 : 35 elem of 1 bytes
+Length of s : 34
+*** Deallocate block 61 : 35 elem of 1 bytes
+
+string s = "Plus de 48 car, 51 pour etre exact, bon ca suffit ?"
+*** Allocate block 62 : 52 elem of 1 bytes
+Length of s : 51
+*** Deallocate block 62 : 52 elem of 1 bytes
+
+string s1 = "toto est vraiment une personne incroyable"
+*** Allocate block 63 : 42 elem of 1 bytes
+
+string s2 = s1
+*** Allocate block 64 : 42 elem of 1 bytes
+
+s1[1] = 'a'
+
+s1[3] = 'a'
+s1 : tata est vraiment une personne incroyable
+s2 : toto est vraiment une personne incroyable
+
+s2 = s1
+
+s2[3] = 'i'
+s1 : tata est vraiment une personne incroyable
+s2 : tati est vraiment une personne incroyable
+*** Deallocate block 64 : 42 elem of 1 bytes
+*** Deallocate block 63 : 42 elem of 1 bytes
+
+string s1 = "Bonjour"
+
+string s2 = " le monde !"
+
+string s3 = s1 + s2
+*** Allocate block 65 : 19 elem of 1 bytes
+s3 : Bonjour le monde !
+
+Destroy vector
+
+*** Deallocate block 65 : 19 elem of 1 bytes
+*** No memory leak
+===============================================================================
+All tests passed (61 assertions in 15 test cases)
